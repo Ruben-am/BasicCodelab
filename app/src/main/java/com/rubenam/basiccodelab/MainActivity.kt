@@ -15,6 +15,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,6 +49,13 @@ fun myApp(
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
+
+    val expanded = remember { mutableStateOf(false) }
+    // remember: Preserva el objeto 'MutableState' a través de las recomposiciones.
+    //            Asegura que el valor (true/false) no se restablezca en cada llamada a la función composable.
+    // mutableStateOf: Crea un estado observable que Compose rastrea.
+    //                 Cualquier cambio en su .value (ej: de false a true) notifica a la UI para que se recomponga.
+
     Surface(
         color = MaterialTheme.colorScheme.primary,
         modifier = modifier
