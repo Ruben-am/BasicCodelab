@@ -22,14 +22,20 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BasicCodelabTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                myApp(modifier = Modifier.fillMaxSize())
             }
         }
+    }
+}
+
+// Componente raíz principal. Encapsula la IU de la aplicación, simplificando la llamada en setContent, para no tener que llamar hay todas las funciones.
+@Composable
+fun myApp(modifier: Modifier = Modifier){
+    Surface(
+        modifier = modifier,
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Greeting("Android")
     }
 }
 
@@ -43,10 +49,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true, name = "Text preview")
+@Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     BasicCodelabTheme {
-        Greeting("Ruben")
+        myApp()
     }
 }
