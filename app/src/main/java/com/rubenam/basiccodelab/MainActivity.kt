@@ -57,7 +57,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         ) {
             Column(
                 modifier = modifier
-                    .weight(1f)
+                    .weight(1f) // Ocupa tódo el espacio disponible, por lo que fillMaxWidth es rebundante
             ) {
                 Text(text = "Hello")
                 Text(text = "$name!")
