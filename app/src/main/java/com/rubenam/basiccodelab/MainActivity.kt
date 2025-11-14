@@ -5,9 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -47,15 +49,25 @@ fun myApp(
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Surface(
         color = MaterialTheme.colorScheme.primary,
-        modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+        modifier = modifier
+            .padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
-        Column(
-            modifier = modifier
-                .padding(24.dp)
-                .fillMaxWidth()
+        Row(
+            modifier = modifier.padding(24.dp)
         ) {
-            Text(text = "Hello")
-            Text(text = "$name!")
+            Column(
+                modifier = modifier
+                    .weight(1f)
+            ) {
+                Text(text = "Hello")
+                Text(text = "$name!")
+            }
+
+            ElevatedButton(
+                onClick = { /* TODO */ }
+            ) {
+                Text(text = "Show more")
+            }
         }
     }
 }
