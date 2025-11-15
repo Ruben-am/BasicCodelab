@@ -43,7 +43,16 @@ class MainActivity : ComponentActivity() {
 fun myApp(
     modifier: Modifier = Modifier,
 ) {
-    Greetings()
+
+    var shouldShowOnboarding by remember { mutableStateOf(true) }
+
+    Surface(modifier) {
+        if (shouldShowOnboarding) {
+            OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
+        } else {
+            Greetings()
+        }
+    }
 }
 
 @Composable
@@ -96,10 +105,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun OnboardingScreen(modifier: Modifier = Modifier) {
-    var shouldShowOnboarding by remember { mutableStateOf(true) }
-    // BY hace que no tengamos que escribir el .value
-
+fun OnboardingScreen(
+    onContinueClicked: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
             .fillMaxSize(),
@@ -109,18 +118,22 @@ fun OnboardingScreen(modifier: Modifier = Modifier) {
         Text("Welcome to the Basics Codelab")
         Button(
             modifier = modifier.padding(vertical = 24.dp),
-            onClick = { shouldShowOnboarding = false }
+            onClick = onContinueClicked
         ) {
             Text("Continue")
         }
     }
 }
 
+// ------------------------------------------------------------------------------------------
+// ---------------------------------------- PREVIEWS ----------------------------------------
+// ------------------------------------------------------------------------------------------
+
 @Preview(showBackground = true, widthDp = 320, heightDp = 320)
 @Composable
 fun OnboardingPreview() {
     BasicCodelabTheme {
-        OnboardingScreen()
+        OnboardingScreen(onContinueClicked = {})
     }
 }
 
@@ -136,6 +149,6 @@ fun GreetingsPreview() {
 @Composable
 fun MyappPreview() {
     BasicCodelabTheme {
-        myApp()
+        myApp(Modifier.fillMaxSize())
     }
 }
