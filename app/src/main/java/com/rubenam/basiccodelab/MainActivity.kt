@@ -42,6 +42,13 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun myApp(
     modifier: Modifier = Modifier,
+) {
+    Greetings()
+}
+
+@Composable
+private fun Greetings(
+    modifier: Modifier = Modifier,
     names: List<String> = listOf("World", "Compose")
 ) {
     Column(modifier = modifier.padding(vertical = 4.dp)) {
@@ -117,10 +124,18 @@ fun OnboardingPreview() {
     }
 }
 
-//@Preview(showBackground = true, widthDp = 320)
-//@Composable
-//fun GreetingPreview() {
-//    BasicCodelabTheme {
-//        myApp()
-//    }
-//}
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+fun GreetingsPreview() {
+    BasicCodelabTheme {
+        Greetings()
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+fun MyappPreview() {
+    BasicCodelabTheme {
+        myApp()
+    }
+}
