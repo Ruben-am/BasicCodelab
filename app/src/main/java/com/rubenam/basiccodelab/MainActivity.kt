@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,7 +47,7 @@ fun myApp(
     modifier: Modifier = Modifier,
 ) {
 
-    var shouldShowOnboarding by remember { mutableStateOf(true) }
+    var shouldShowOnboarding by rememberSaveable() { mutableStateOf(true) }
 
     Surface(modifier) {
         if (shouldShowOnboarding) {
@@ -72,7 +73,7 @@ private fun Greetings(
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
 
-    val expanded = remember { mutableStateOf(false) }
+    val expanded = rememberSaveable() { mutableStateOf(false) }
     // remember: Preserva el objeto 'MutableState' a través de las recomposiciones.
     //            Asegura que el valor (true/false) no se restablezca en cada llamada a la función composable.
     // mutableStateOf: Crea un estado observable que Compose rastrea.
