@@ -58,7 +58,7 @@ fun myApp(
 @Composable
 private fun Greetings(
     modifier: Modifier = Modifier,
-    names: List<String> = listOf("World", "Compose")
+    names: List<String> = List(1000) {"$it"}
 ) {
     Column(modifier = modifier.padding(vertical = 4.dp)) {
         for (name in names) {
@@ -92,7 +92,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                     .padding(bottom = extraPadding)
             ) {
                 Text(text = "Hello")
-                Text(text = "$name!")
+                Text(text = name)
             }
 
             ElevatedButton(
