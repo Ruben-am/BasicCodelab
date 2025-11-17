@@ -73,7 +73,7 @@ private fun Greetings(
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
 
-    val expanded = remember { mutableStateOf(false) }
+    val expanded = rememberSaveable() { mutableStateOf(false) }
     // remember: Preserva el objeto 'MutableState' a través de las recomposiciones.
     //            Asegura que el valor (true/false) no se restablezca en cada llamada a la función composable.
     // mutableStateOf: Crea un estado observable que Compose rastrea.
