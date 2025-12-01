@@ -105,7 +105,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                     .padding(bottom = extraPadding.coerceAtLeast(0.dp))
             ) {
                 Text(text = "Hello")
-                Text(text = name)
+                Text(text = name, style = MaterialTheme.typography.headlineMedium)
             }
 
             ElevatedButton(
