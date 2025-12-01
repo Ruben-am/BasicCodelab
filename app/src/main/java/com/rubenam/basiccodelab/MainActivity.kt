@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -27,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import com.rubenam.basiccodelab.ui.theme.BasicCodelabTheme
 
@@ -81,8 +84,13 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     //                 Cualquier cambio en su .value (ej: de false a true) notifica a la UI para que se recomponga.
 
     val extraPadding by animateDpAsState(
-        if (expanded) 48.dp else 0.dp
+        if (expanded) 48.dp else 0.dp,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        )
     )
+
     Surface(
         color = MaterialTheme.colorScheme.primary,
         modifier = modifier
@@ -94,7 +102,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             Column(
                 modifier = modifier
                     .weight(1f) // Ocupa tódo el espacio disponible, por lo que fillMaxWidth es rebundante
-                    .padding(bottom = extraPadding)
+                    .padding(bottom = extraPadding.coerceAtLeast(0.dp))
             ) {
                 Text(text = "Hello")
                 Text(text = name)
