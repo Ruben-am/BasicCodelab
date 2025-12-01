@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -73,14 +74,15 @@ private fun Greetings(
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
 
-    val expanded = rememberSaveable() { mutableStateOf(false) }
+    var expanded by rememberSaveable { mutableStateOf(false) }
     // remember: Preserva el objeto 'MutableState' a través de las recomposiciones.
     //            Asegura que el valor (true/false) no se restablezca en cada llamada a la función composable.
     // mutableStateOf: Crea un estado observable que Compose rastrea.
     //                 Cualquier cambio en su .value (ej: de false a true) notifica a la UI para que se recomponga.
 
-    val extraPadding = if (expanded.value) 48.dp else 0.dp
-
+    val extraPadding by animateDpAsState(
+        if (expanded) 48.dp else 0.dp
+    )
     Surface(
         color = MaterialTheme.colorScheme.primary,
         modifier = modifier
@@ -99,9 +101,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             }
 
             ElevatedButton(
-                onClick = { expanded.value = !expanded.value }
+                onClick = { expanded = !expanded }
             ) {
-                Text(if (expanded.value) "Show less" else "Show more")
+                Text(if (expanded) "Show less" else "Show more")
             }
         }
     }
