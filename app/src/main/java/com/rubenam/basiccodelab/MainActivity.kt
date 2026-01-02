@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -78,44 +80,13 @@ private fun Greetings(
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-
-    var expanded by rememberSaveable { mutableStateOf(false) }
-    // remember: Preserva el objeto 'MutableState' a través de las recomposiciones.
-    //            Asegura que el valor (true/false) no se restablezca en cada llamada a la función composable.
-    // mutableStateOf: Crea un estado observable que Compose rastrea.
-    //                 Cualquier cambio en su .value (ej: de false a true) notifica a la UI para que se recomponga.
-
-    val extraPadding by animateDpAsState(
-        if (expanded) 48.dp else 0.dp,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessLow
-        )
-    )
-
-    Surface(
-        color = MaterialTheme.colorScheme.primary,
-        modifier = modifier
-            .padding(vertical = 4.dp, horizontal = 8.dp)
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primary
+        ),
+        modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
-        Row(
-            modifier = modifier.padding(24.dp)
-        ) {
-            Column(
-                modifier = modifier
-                    .weight(1f) // Ocupa tódo el espacio disponible, por lo que fillMaxWidth es rebundante
-                    .padding(bottom = extraPadding.coerceAtLeast(0.dp))
-            ) {
-                Text(text = "Hello")
-                Text(text = name, style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold))
-            }
-
-            ElevatedButton(
-                onClick = { expanded = !expanded }
-            ) {
-                Text(if (expanded) "Show less" else "Show more")
-            }
-        }
+        CardContent(name)
     }
 }
 
